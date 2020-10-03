@@ -6,6 +6,7 @@ export default class VkApiError extends Error {
     this.message = error.message;
     this.code = code;
 
-    console.error(`${this.message}: `, error);
+    console.error({ message: this.message, code });
+    console.error(error);
   }
 }
