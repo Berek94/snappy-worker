@@ -1,6 +1,6 @@
 import { WebhookMessage } from "./types";
 import { sendMessage, editDialogName } from "../api/methods";
-import { EditDialogError } from "./errors";
+import VkApiError from "../api/VkApiError";
 
 class VkBotCommand {
   constructor(private message: WebhookMessage) {}
@@ -14,14 +14,15 @@ class VkBotCommand {
   async editDialogName(newTitle: string) {
     try {
       const basePublicDialogID = 2000000000;
-      const dialogID = this.message.peer_id - basePublicDialogID;
 
-      if (dialogID > 0) {
-        await editDialogName(dialogID, newTitle);
-      } else {
-        throw new EditDialogError("Не могу в этом чате 🤯");
+      await editDialogName(this.message.peer_id - basePublicDialogID, newTitle);
+    } catch (err: unknown) {
+      const error = err as VkApiError;
+
+      if (error.code === 100) {
+        error.message = "Название не указано 🙄";
       }
-    } catch (error) {
+
       throw error;
     }
   }

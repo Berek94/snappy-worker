@@ -16,7 +16,7 @@ export const commands = [
   "курс евро" as const,
   "новость" as const,
   "цитатка" as const,
-  "caйтик ботяры" as const,
+  "caйтик" as const,
   "команды" as const,
 ];
 
@@ -33,7 +33,7 @@ export const commandsMeta: Record<Command, CommandMeta> = {
   "курс евро": { description: "Получить курс евро и доллара" },
   новость: { description: "Получить случайную новость" },
   цитатка: { description: "Получить случайную цитатку" },
-  "caйтик ботяры": { description: "Получить ссылку на сайт бота" },
+  "caйтик": { description: "Получить ссылку на сайт бота" },
   команды: { description: "Получить все команды бота" },
   "изменить название": {
     description: "Установить название чата (поддерживаются параметры)",

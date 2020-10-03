@@ -55,7 +55,7 @@ const start: CommandHandler = (ctx) => {
             action: {
               type: "text",
               payload: '{"button": "7"}',
-              label: "Caйтик ботяры",
+              label: "Caйтик",
             },
             color: "secondary",
           },

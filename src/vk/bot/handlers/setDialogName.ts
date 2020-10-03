@@ -1,14 +1,12 @@
-import FetchError from "../../../fetch/FetchError";
-import { EditDialogError } from "../errors";
+import VkApiError from "../../api/VkApiError";
 import { CommandHandler } from "../VkBot";
 
 const setDialogName: CommandHandler = async (ctx, newName) => {
   try {
     await ctx.editDialogName(newName);
-  } catch (error: unknown) {
-    if (error instanceof FetchError || error instanceof EditDialogError) {
-      ctx.reply(error.message);
-    }
+  } catch (err: unknown) {
+    const error = err as VkApiError;
+    ctx.reply(error.message);
   }
 };
 

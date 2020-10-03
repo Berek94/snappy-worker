@@ -1,8 +1,10 @@
 export default class VkApiError extends Error {
-  message = "Ошибка VK api 🤯";
+  code: number;
 
-  constructor(error: Error) {
+  constructor(error: Error, code: number) {
     super(error.message);
+    this.message = error.message;
+    this.code = code;
 
     console.error(`${this.message}: `, error);
   }

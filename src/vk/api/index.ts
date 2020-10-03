@@ -2,6 +2,13 @@ import fetch from "node-fetch";
 import { ACCESS_TOKEN } from "../../config";
 import VkApiError from "./VkApiError";
 
+type Response = {
+  error?: {
+    error_code: number;
+    error_msg: string;
+  };
+};
+
 const vkApiRequest = async (method: string, data: any) => {
   try {
     const params = new URLSearchParams();
@@ -21,20 +28,28 @@ const vkApiRequest = async (method: string, data: any) => {
     params.append("access_token", ACCESS_TOKEN);
     params.append("v", "5.124");
 
-    const response = await (
+    const response = (await (
       await fetch(`https://api.vk.com/method/${method}?${params.toString()}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
       })
-    ).json();
+    ).json()) as Response;
 
     if (response.error) {
-      throw response.error;
+      throw new VkApiError(
+        new Error(response.error.error_msg),
+        response.error.error_code
+      );
     }
   } catch (error) {
-    throw new VkApiError(error);
+    if (error instanceof VkApiError) {
+      throw error;
+    }
+
+    error.message = "Ошибка VK api 🤯";
+    throw new VkApiError(error, 0);
   }
 };
 

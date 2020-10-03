@@ -1,6 +1,6 @@
 import FetchError from "../../../fetch/FetchError";
 import { getRandomDayNameRequest } from "../../../request/getDayNamesRequest";
-import { EditDialogError } from "../errors";
+import VkApiError from "../../api/VkApiError";
 import { CommandHandler } from "../VkBot";
 
 const setRandomDialogName: CommandHandler = async (ctx) => {
@@ -9,7 +9,7 @@ const setRandomDialogName: CommandHandler = async (ctx) => {
 
     await ctx.editDialogName(day);
   } catch (error: unknown) {
-    if (error instanceof FetchError || error instanceof EditDialogError) {
+    if (error instanceof VkApiError || error instanceof FetchError) {
       ctx.reply(error.message);
     }
   }
