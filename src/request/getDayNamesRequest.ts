@@ -11,7 +11,15 @@ const getCurrentDayNamesRequest = async () => {
     if (lastRequestDate !== currentDate) {
       lastRequestDate = currentDate;
       const htmlContent = await (
-        await fetch("https://prazdnikisegodnya.ru/")
+        await fetch("https://prazdnikisegodnya.ru/", "GET", null, {
+          "Content-Type": "text/html",
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36",
+          "sec-ch-ua": `"\\Not;A\"Brand";v="99", "Google Chrome";v="85", "Chromium";v="85"`,
+          "sec-fetch-dest": "document",
+          "sec-fetch-mode": "navigate",
+          "sec-fetch-site": "cross-site",
+        })
       ).text();
 
       const daysNames =

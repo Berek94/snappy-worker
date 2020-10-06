@@ -4,13 +4,15 @@ import FetchError from "./FetchError";
 const fetch = async (
   url: string,
   method: "GET" | "POST" = "GET",
-  data?: any
+  data?: any,
+  headers?: Record<string, string>
 ) => {
   try {
     const requestOptions = {
       method,
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: data ? JSON.stringify(data) : undefined,
     };
