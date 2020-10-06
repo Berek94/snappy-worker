@@ -34,23 +34,27 @@ router.get("/time", (_req, res) => {
   });
 });
 
-router.get("/test", async (_req, res) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setUserAgent(
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
-  );
-  await page.goto("http://kakoysegodnyaprazdnik.ru/");
+router.get("/test", async (_req, res, next) => {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
+    );
+    await page.goto("http://kakoysegodnyaprazdnik.ru/");
 
-  const dayNames = await page.evaluate(() =>
-    Array.from(document.querySelectorAll('span[itemprop="text"]')).map((node) =>
-      node.textContent?.split("(")[0].trim()
-    )
-  );
+    const dayNames = await page.evaluate(() =>
+      Array.from(
+        document.querySelectorAll('span[itemprop="text"]')
+      ).map((node) => node.textContent?.split("(")[0].trim())
+    );
 
-  await browser.close();
+    await browser.close();
 
-  res.json(dayNames);
+    res.json(dayNames);
+  } catch (error) {
+    next({ error });
+  }
 });
 
 export default router;
