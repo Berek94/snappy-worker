@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "module": "CommonJS",
     "lib": ["ESNext", "DOM"],
+    "outDir": "build",
     "moduleResolution": "Node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
