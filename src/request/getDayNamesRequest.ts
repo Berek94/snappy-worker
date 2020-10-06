@@ -11,12 +11,12 @@ const getCurrentDayNamesRequest = async () => {
     if (lastRequestDate !== currentDate) {
       lastRequestDate = currentDate;
       const htmlContent = await (
-        await fetch("http://kakoysegodnyaprazdnik.ru/")
+        await fetch("https://prazdnikisegodnya.ru/")
       ).text();
 
-      const daysNames = [
-        ...htmlContent.matchAll(/<span itemprop="text">(.*?)<\/span>/g),
-      ].flatMap((item) => item[1].split(" (")[0]);
+      const daysNames =
+        htmlContent.match(/(День .*)</g)?.map((i) => i.replace(/<|:/g, "")) ??
+        [];
 
       cachedNames = daysNames;
     }
