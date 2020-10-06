@@ -1,7 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-export const PORT = process.env.PORT ?? 8080;
+export const PORT = process.env.PORT ?? "";
 export const ACCESS_TOKEN = process.env.ACCESS_TOKEN ?? "";
 export const CONFIRMATION = process.env.CONFIRMATION ?? "";
 
