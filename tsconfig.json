@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2018",
+    "outDir": "build",
+    "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "module": "CommonJS",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "Node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strict": true,
-    "target": "ES6"
-  },
-  "exclude": ["node_modules"]
+    "strict": true
+  }
 }

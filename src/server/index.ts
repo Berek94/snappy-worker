@@ -1,11 +1,13 @@
 import express, { Router } from "express";
 import morgan from "morgan";
+import helmet from "helmet";
 import { errorHandler } from "./middleware";
 import api from "./api";
 import { PORT } from "../config";
 
 const startServer = (router: Router, onStart?: () => void) => {
   const server = express();
+  server.use(helmet());
   server.use(morgan("common"));
   server.use(express.json());
 

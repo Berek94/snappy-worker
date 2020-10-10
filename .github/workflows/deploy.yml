@@ -17,10 +17,6 @@ jobs:
       - name: Install
         run: npm ci
       - name: Build
-        env:
-          PORT: 8080
-          CONFIRMATION: 21ec6e4b
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: npm run build
       - name: Copy build to the server
         uses: appleboy/scp-action@master
@@ -28,10 +24,14 @@ jobs:
           host: 82.148.19.60
           username: deployer
           key: ${{ secrets.DEPLOY_KEY }}
-          source: "build,public"
+          source: "build,public,node_modules"
           target: "/home/deployer/snappy-worker"
       - name: "Run app"
         uses: appleboy/ssh-action@master
+        env:
+          PORT: 8080
+          CONFIRMATION: 21ec6e4b
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           host: 82.148.19.60
           username: deployer
