@@ -18,6 +18,7 @@ export const commands = [
   "цитатка" as const,
   "caйтик" as const,
   "команды" as const,
+  "пиздец" as const,
 ];
 
 export type Command = typeof commands[0];
@@ -38,6 +39,9 @@ export const commandsMeta: Record<Command, CommandMeta> = {
   "изменить название": {
     description: "Установить название чата (поддерживаются параметры)",
   },
+  пиздец: {
+    description: "Скорее всего вернет топовый стишок"
+  }
 };
 
 class VkBot {

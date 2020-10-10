@@ -6,6 +6,7 @@ import start from "./handlers/start";
 import getWhatDayToday from "./handlers/getWhatDayToday";
 import getBotCommands from "./handlers/getBotCommands";
 import setDialogName from "./handlers/setDialogName";
+import getRandomTweet from './handlers/getRandomTweet';
 
 import VkBot, { Command, CommandHandler, commands } from "./VkBot";
 import getSite from "./handlers/getSite";
@@ -23,6 +24,7 @@ const handlers: Record<Command, CommandHandler> = {
   caйтик: getSite,
   команды: getBotCommands,
   "изменить название": setDialogName,
+  пиздец: getRandomTweet,
 };
 
 commands.forEach((command) => bot.command(command, handlers[command]));
