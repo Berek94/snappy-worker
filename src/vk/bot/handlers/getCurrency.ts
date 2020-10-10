@@ -4,6 +4,7 @@ import { CommandHandler } from "../VkBot";
 
 const getCurrency: CommandHandler = async (ctx) => {
   try {
+    ctx.reply("💭");
     const { usd, eur } = await getCurrencyRequest();
 
     const text = [`💵 Доллар: ${usd}`, `💶 Евро: ${eur}`].join("\n");

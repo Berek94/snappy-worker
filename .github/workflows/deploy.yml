@@ -26,6 +26,7 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "build,public,node_modules"
           target: "/home/deployer/snappy-worker"
+          rm: true
       - name: "Run app"
         uses: appleboy/ssh-action@master
         with:
