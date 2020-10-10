@@ -28,12 +28,14 @@ jobs:
           target: "/home/deployer/snappy-worker"
       - name: "Run app"
         uses: appleboy/ssh-action@master
-        env:
-          PORT: 8080
-          CONFIRMATION: 21ec6e4b
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           host: 82.148.19.60
           username: deployer
           key: ${{ secrets.DEPLOY_KEY }}
-          script: pm2 restart snappy-worker
+          script: |
+            cd snappy-worker
+            touch .env
+            echo "PORT=8080" >> .env
+            echo "CONFIRMATION=21ec6e4b" >> .env
+            echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
+            pm2 restart snappy-worker
