@@ -1,4 +1,5 @@
 import { Router } from "express";
+import getCurrencyRequest from "../request/getCurrencyRequest";
 import getCurrentDayNamesRequest from "../request/getDayNamesRequest";
 import getNewsRequest from "../request/getNewsRequest";
 
@@ -22,15 +23,12 @@ router.get("/news", async (_req, res, next) => {
   }
 });
 
-router.get("/time", (_req, res) => {
-  const date = new Date(
-    new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" })
-  );
-
-  res.json({
-    day: date.getDate(),
-    month: date.getMonth() + 1,
-  });
+router.get("/currency", async (_req, res, next) => {
+  try {
+    res.json(await getCurrencyRequest());
+  } catch (error) {
+    next({ error });
+  }
 });
 
 export default router;
