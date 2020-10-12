@@ -64,18 +64,19 @@ class VkBot {
       const body = req.body as WebhookRequest;
 
       if (body.type === "confirmation") {
-        res.send(CONFIRMATION);
+        return res.send(CONFIRMATION);
       } else if (body.type === "message_new") {
         const { message } = body.object;
         const { command, args } = this.parseCommand(message.text);
 
         this.eventEmitter.emit(command, new VkBotCommand(message), args);
-        res.send("ok");
       }
 
       console.log(req.body);
+      return res.send("ok");
     } catch (error) {
       next({ error });
+      return res.send("ok");
     }
   };
 
