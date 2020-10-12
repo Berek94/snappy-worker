@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { CONFIRMATION } from "../../config";
 import { WebhookRequest } from "./types";
 import VkBotCommand from "./VkBotCommand";
@@ -34,14 +34,14 @@ export const commandsMeta: Record<Command, CommandMeta> = {
   "курс евро": { description: "Получить курс евро и доллара" },
   новость: { description: "Получить случайную новость" },
   цитатка: { description: "Получить случайную цитатку" },
-  "caйтик": { description: "Получить ссылку на сайт бота" },
+  caйтик: { description: "Получить ссылку на сайт бота" },
   команды: { description: "Получить все команды бота" },
   "изменить название": {
     description: "Установить название чата (поддерживаются параметры)",
   },
   пиздец: {
-    description: "Скорее всего вернет топовый стишок"
-  }
+    description: "Скорее всего вернет топовый стишок",
+  },
 };
 
 class VkBot {
@@ -59,24 +59,27 @@ class VkBot {
     };
   }
 
-  webhook = (req: Request, res: Response) => {
-    const {
-      type,
-      object: { message },
-    } = req.body as WebhookRequest;
+  webhook = (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const {
+        type,
+        object: { message },
+      } = req.body as WebhookRequest;
 
-    if (type === "confirmation") {
-      return res.send(CONFIRMATION);
+      if (type === "confirmation") {
+        res.send(CONFIRMATION);
+      } else if (type === "message_new") {
+        const { command, args } = this.parseCommand(message.text);
+
+        this.eventEmitter.emit(command, new VkBotCommand(message), args);
+      }
+
+      console.log(req.body);
+
+      res.send("ok");
+    } catch (error) {
+      next({ error });
     }
-    if (type === "message_new") {
-      const { command, args } = this.parseCommand(message.text);
-
-      this.eventEmitter.emit(command, new VkBotCommand(message), args);
-    }
-
-    console.log(req.body);
-
-    return res.send("ok");
   };
 
   command = (command: string, commandCallback: CommandHandler) => {
