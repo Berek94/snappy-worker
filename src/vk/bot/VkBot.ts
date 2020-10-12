@@ -70,11 +70,10 @@ class VkBot {
         const { command, args } = this.parseCommand(message.text);
 
         this.eventEmitter.emit(command, new VkBotCommand(message), args);
+        res.send("ok");
       }
 
       console.log(req.body);
-
-      res.send("ok");
     } catch (error) {
       next({ error });
     }
