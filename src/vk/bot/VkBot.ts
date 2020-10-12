@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { CONFIRMATION } from "../../config";
 import { WebhookRequest } from "./types";
 import VkBotCommand from "./VkBotCommand";
@@ -59,25 +59,19 @@ class VkBot {
     };
   }
 
-  webhook = (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const body = req.body as WebhookRequest;
+  webhook = (req: Request, res: Response) => {
+    const body = req.body as WebhookRequest;
 
-      if (body.type === "confirmation") {
-        return res.send(CONFIRMATION);
-      } else if (body.type === "message_new") {
-        const { message } = body.object;
-        const { command, args } = this.parseCommand(message.text);
+    if (body.type === "confirmation") {
+      return res.send(CONFIRMATION);
+    } else if (body.type === "message_new") {
+      const { message } = body.object;
+      const { command, args } = this.parseCommand(message.text);
 
-        this.eventEmitter.emit(command, new VkBotCommand(message), args);
-      }
-
-      console.log(req.body);
-      return res.send("ok");
-    } catch (error) {
-      next({ error });
-      return res.send("ok");
+      this.eventEmitter.emit(command, new VkBotCommand(message), args);
     }
+
+    return res.send("ok");
   };
 
   command = (command: string, commandCallback: CommandHandler) => {
