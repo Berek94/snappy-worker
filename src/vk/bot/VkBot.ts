@@ -61,14 +61,12 @@ class VkBot {
 
   webhook = (req: Request, res: Response, next: NextFunction) => {
     try {
-      const {
-        type,
-        object: { message },
-      } = req.body as WebhookRequest;
+      const body = req.body as WebhookRequest;
 
-      if (type === "confirmation") {
+      if (body.type === "confirmation") {
         res.send(CONFIRMATION);
-      } else if (type === "message_new") {
+      } else if (body.type === "message_new") {
+        const { message } = body.object;
         const { command, args } = this.parseCommand(message.text);
 
         this.eventEmitter.emit(command, new VkBotCommand(message), args);

@@ -13,12 +13,16 @@ export type WebhookMessage = {
   is_hidden: boolean;
 };
 
-export type WebhookRequest = {
-  type: "confirmation" | "message_new";
-  object: {
-    message: WebhookMessage;
-    client_info: {};
-  };
-  group_id: number;
-  event_id: string;
-};
+export type WebhookRequest =
+  | {
+      type: "confirmation";
+    }
+  | {
+      type: "message_new";
+      object: {
+        message: WebhookMessage;
+        client_info: {};
+      };
+      group_id: number;
+      event_id: string;
+    };
