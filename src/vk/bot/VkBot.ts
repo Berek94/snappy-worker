@@ -71,6 +71,8 @@ class VkBot {
       this.eventEmitter.emit(command, new VkBotCommand(message), args);
     }
 
+    console.log(body.object);
+
     return res.send("ok");
   };
 
