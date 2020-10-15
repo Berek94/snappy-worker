@@ -8,10 +8,10 @@ export const randomAnswer: BotMiddleware = async (command) => {
 
     if (isGotChance) {
       const randomPhrase = randomPhrases[getRandomNumber(randomPhrases.length)];
-      command.reply({
-        message: randomPhrase,
-        reply_to: command.message.id,
-      });
+      const reply_to =
+        command.message.id || command.message.conversation_message_id;
+
+      command.reply({ message: randomPhrase, reply_to });
     }
     return true;
   } catch (error) {
