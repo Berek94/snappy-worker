@@ -2,29 +2,32 @@ import { CommandHandler } from "../VkBot";
 
 const start: CommandHandler = (ctx) => {
   try {
-    ctx.reply("✅", {
-      inline: false,
-      one_time: false,
-      buttons: [
-        [
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "1"}',
-              label: "Случайное название чата",
+    ctx.reply({
+      message: "✅",
+      keyboard: {
+        inline: false,
+        one_time: false,
+        buttons: [
+          [
+            {
+              action: {
+                type: "text",
+                payload: '{"button": "1"}',
+                label: "Случайное название чата",
+              },
+              color: "positive",
             },
-            color: "positive",
-          },
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "4"}',
-              label: "Какой сегодня день",
+            {
+              action: {
+                type: "text",
+                payload: '{"button": "4"}',
+                label: "Какой сегодня день",
+              },
+              color: "secondary",
             },
-            color: "secondary",
-          },
+          ],
         ],
-      ],
+      },
     });
   } catch (error) {}
 };

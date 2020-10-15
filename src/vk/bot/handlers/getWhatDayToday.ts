@@ -6,10 +6,10 @@ const whatDayToday: CommandHandler = async (ctx) => {
   try {
     const day = await getRandomDayNameRequest();
 
-    ctx.reply(day);
+    ctx.reply({ message: day });
   } catch (error) {
     if (error instanceof FetchError) {
-      ctx.reply(error.message);
+      ctx.reply({ message: error.message });
     }
   }
 };

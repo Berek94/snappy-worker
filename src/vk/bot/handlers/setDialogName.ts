@@ -6,7 +6,7 @@ const setDialogName: CommandHandler = async (ctx, newName) => {
     await ctx.changeDialogTitle(newName);
   } catch (err: unknown) {
     const error = err as VkApiError;
-    ctx.reply(error.message);
+    ctx.reply({ message: error.message });
   }
 };
 

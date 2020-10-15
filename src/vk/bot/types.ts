@@ -26,3 +26,9 @@ export type WebhookRequest =
       group_id: number;
       event_id: string;
     };
+
+export type BotCommandReplyParams = {
+  message: string;
+  keyboard?: any;
+  reply_to?: number;
+};

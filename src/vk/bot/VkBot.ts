@@ -7,8 +7,16 @@ import { sendMessage } from "../api/methods";
 
 export type CommandHandler = (context: VkBotCommand, args: string) => void;
 
+export type BotMiddleware = (message: VkBotCommand) => Promise<boolean>;
+
 class VkBot {
-  private eventEmitter = new EventEmitter();
+  private eventEmitter;
+  private middlewareList;
+
+  constructor(middlewareList: BotMiddleware[]) {
+    this.eventEmitter = new EventEmitter();
+    this.middlewareList = middlewareList;
+  }
 
   private parseCommand(commandString: string) {
     const [command, stringParams = ""] = commandString
@@ -22,16 +30,32 @@ class VkBot {
     };
   }
 
-  webhook = (req: Request, res: Response) => {
+  webhook = async (req: Request, res: Response) => {
     const body = req.body as WebhookRequest;
 
     if (body.type === "confirmation") {
       return res.send(CONFIRMATION);
     } else if (body.type === "message_new") {
       const { message } = body.object;
-      const { command, args } = this.parseCommand(message.text);
+      const botCommand = new VkBotCommand(message);
 
-      this.eventEmitter.emit(command, new VkBotCommand(message), args);
+      const canCallAfter = await this.middlewareList.reduce(
+        async (result, middleware) => {
+          const value = await result;
+
+          if (value) {
+            result = middleware(botCommand);
+          }
+          return result;
+        },
+        Promise.resolve(true)
+      );
+
+      if (canCallAfter) {
+        const { command, args } = this.parseCommand(message.text);
+
+        this.eventEmitter.emit(command, botCommand, args);
+      }
     }
 
     console.log({ type: body.type, data: body.object });
@@ -45,7 +69,7 @@ class VkBot {
 
   send = async (dialogID: number, message: string) => {
     try {
-      await sendMessage(dialogID, message);
+      await sendMessage({ peer_id: dialogID, message });
     } catch (error) {}
   };
 }

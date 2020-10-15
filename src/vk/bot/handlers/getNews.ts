@@ -7,10 +7,10 @@ const getNews: CommandHandler = async (ctx) => {
     const news = await getRandomNewsRequest();
     const text = [`⭕ ${news.title}`, news.description, news.link].join("\n\n");
 
-    ctx.reply(text);
+    ctx.reply({ message: text });
   } catch (error) {
     if (error instanceof FetchError) {
-      ctx.reply(error.message);
+      ctx.reply({ message: error.message });
     }
   }
 };

@@ -1,6 +1,7 @@
 import setRandomDialogName from "./handlers/setRandomDialogName";
 import start from "./handlers/start";
 import getWhatDayToday from "./handlers/getWhatDayToday";
+import { randomAnswer } from "./middleware";
 // import setDialogName from "./handlers/setDialogName";
 // import getRandomTweet from './handlers/getRandomTweet';
 // import getCurrency from "./handlers/getCurrency";
@@ -10,7 +11,7 @@ import getWhatDayToday from "./handlers/getWhatDayToday";
 import VkBot from "./VkBot";
 import getSite from "./handlers/getSite";
 
-const bot = new VkBot();
+const bot = new VkBot([randomAnswer]);
 
 bot.command("старт", start);
 

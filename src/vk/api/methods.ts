@@ -1,16 +1,9 @@
 import vkApiRequest from ".";
+import { SendMessageParams } from "./type";
 import VkApiError from "./VkApiError";
 
-export const sendMessage = (
-  peer_id: number,
-  message?: string,
-  keyboard?: any
-) =>
-  vkApiRequest("messages.send", {
-    peer_id,
-    message,
-    keyboard,
-  });
+export const sendMessage = (data: SendMessageParams) =>
+  vkApiRequest("messages.send", data);
 
 export const editDialogName = async (chat_id: number, title: string) => {
   try {

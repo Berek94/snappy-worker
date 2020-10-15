@@ -4,15 +4,15 @@ import { CommandHandler } from "../VkBot";
 
 const getCurrency: CommandHandler = async (ctx) => {
   try {
-    ctx.reply("💭");
+    ctx.reply({ message: "💭" });
     const { usd, eur } = await getCurrencyRequest();
 
     const text = [`💵 Доллар: ${usd}`, `💶 Евро: ${eur}`].join("\n");
 
-    ctx.reply(text);
+    ctx.reply({ message: text });
   } catch (error: unknown) {
     if (error instanceof FetchError) {
-      ctx.reply(error.message);
+      ctx.reply({ message: error.message });
     }
   }
 };

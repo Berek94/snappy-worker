@@ -4,13 +4,13 @@ import { CommandHandler } from "../VkBot";
 
 const getRandomTweet: CommandHandler = async (ctx) => {
   try {
-    ctx.reply("💭");
+    ctx.reply({ message: "💭" });
     const tweet = await getRandomTweetsRequest();
 
-    ctx.reply(tweet);
+    ctx.reply({ message: tweet });
   } catch (error: unknown) {
     if (error instanceof FetchError) {
-      ctx.reply(error.message);
+      ctx.reply({ message: error.message });
     }
   }
 };

@@ -8,7 +8,7 @@ const setRandomDialogName: CommandHandler = async (ctx) => {
     await ctx.changeDialogTitle(await getRandomDayNameRequest());
   } catch (error: unknown) {
     if (error instanceof VkApiError || error instanceof FetchError) {
-      ctx.reply(error.message);
+      ctx.reply({ message: error.message });
     }
   }
 };
