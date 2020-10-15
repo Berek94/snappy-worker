@@ -15,47 +15,11 @@ const start: CommandHandler = (ctx) => {
             },
             color: "positive",
           },
-        ],
-        [
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "3"}',
-              label: "Курс доллара",
-            },
-            color: "secondary",
-          },
           {
             action: {
               type: "text",
               payload: '{"button": "4"}',
               label: "Какой сегодня день",
-            },
-            color: "secondary",
-          },
-        ],
-        [
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "5"}',
-              label: "Цитатка",
-            },
-            color: "secondary",
-          },
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "6"}',
-              label: "Новость",
-            },
-            color: "secondary",
-          },
-          {
-            action: {
-              type: "text",
-              payload: '{"button": "7"}',
-              label: "Caйтик",
             },
             color: "secondary",
           },

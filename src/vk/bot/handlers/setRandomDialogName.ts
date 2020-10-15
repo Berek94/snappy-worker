@@ -5,9 +5,7 @@ import { CommandHandler } from "../VkBot";
 
 const setRandomDialogName: CommandHandler = async (ctx) => {
   try {
-    const day = await getRandomDayNameRequest();
-
-    await ctx.editDialogName(day);
+    await ctx.changeDialogTitle(await getRandomDayNameRequest());
   } catch (error: unknown) {
     if (error instanceof VkApiError || error instanceof FetchError) {
       ctx.reply(error.message);

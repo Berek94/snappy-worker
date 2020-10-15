@@ -7,43 +7,6 @@ import { sendMessage } from "../api/methods";
 
 export type CommandHandler = (context: VkBotCommand, args: string) => void;
 
-export const commands = [
-  "старт" as const,
-  "какой сегодня день" as const,
-  "случайное название чата" as const,
-  "изменить название" as const,
-  "курс доллара" as const,
-  "курс евро" as const,
-  "новость" as const,
-  "цитатка" as const,
-  "caйтик" as const,
-  "команды" as const,
-  "пиздец" as const,
-];
-
-export type Command = typeof commands[0];
-export type CommandMeta = { description: string };
-
-export const commandsMeta: Record<Command, CommandMeta> = {
-  старт: { description: "Загрузить все кнопки с командами" },
-  "какой сегодня день": { description: "Получить случайное название дня" },
-  "случайное название чата": {
-    description: "Изменяет название чата на название случайного дня",
-  },
-  "курс доллара": { description: "Получить курс доллара и евро" },
-  "курс евро": { description: "Получить курс евро и доллара" },
-  новость: { description: "Получить случайную новость" },
-  цитатка: { description: "Получить случайную цитатку" },
-  caйтик: { description: "Получить ссылку на сайт бота" },
-  команды: { description: "Получить все команды бота" },
-  "изменить название": {
-    description: "Установить название чата (поддерживаются параметры)",
-  },
-  пиздец: {
-    description: "Скорее всего вернет топовый стишок",
-  },
-};
-
 class VkBot {
   private eventEmitter = new EventEmitter();
 
@@ -71,7 +34,7 @@ class VkBot {
       this.eventEmitter.emit(command, new VkBotCommand(message), args);
     }
 
-    console.log(body.object);
+    console.log({ type: body.type, data: body.object });
 
     return res.send("ok");
   };

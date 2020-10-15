@@ -1,4 +1,5 @@
 import vkApiRequest from ".";
+import VkApiError from "./VkApiError";
 
 export const sendMessage = (
   peer_id: number,
@@ -11,5 +12,16 @@ export const sendMessage = (
     keyboard,
   });
 
-export const editDialogName = (chat_id: number, title: string) =>
-  vkApiRequest("messages.editChat", { chat_id, title });
+export const editDialogName = async (chat_id: number, title: string) => {
+  try {
+    await vkApiRequest("messages.editChat", { chat_id, title });
+  } catch (err: unknown) {
+    const error = err as VkApiError;
+
+    if (error.code === 100) {
+      error.message = "Название не указано 🙄";
+    }
+
+    throw error;
+  }
+};

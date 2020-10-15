@@ -1,6 +1,5 @@
 import { WebhookMessage } from "./types";
 import { sendMessage, editDialogName } from "../api/methods";
-import VkApiError from "../api/VkApiError";
 
 class VkBotCommand {
   constructor(private message: WebhookMessage) {}
@@ -11,20 +10,10 @@ class VkBotCommand {
     } catch (error) {}
   }
 
-  async editDialogName(newTitle: string) {
-    try {
-      const basePublicDialogID = 2000000000;
+  async changeDialogTitle(newTitle: string) {
+    const basePublicDialogID = 2000000000;
 
-      await editDialogName(this.message.peer_id - basePublicDialogID, newTitle);
-    } catch (err: unknown) {
-      const error = err as VkApiError;
-
-      if (error.code === 100) {
-        error.message = "Название не указано 🙄";
-      }
-
-      throw error;
-    }
+    editDialogName(this.message.peer_id - basePublicDialogID, newTitle);
   }
 }
 
