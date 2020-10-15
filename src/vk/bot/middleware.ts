@@ -13,7 +13,6 @@ export const randomAnswer: BotMiddleware = async (command) => {
 
       command.reply({
         message: randomPhrase,
-        reply_to,
         forward_messages: `${reply_to}`,
       });
     }
