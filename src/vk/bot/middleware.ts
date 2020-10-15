@@ -4,16 +4,11 @@ import { calcChance, getRandomNumber } from "../../helpers";
 
 export const randomAnswer: BotMiddleware = async (command) => {
   try {
-    const isGotChance = calcChance(20);
+    const isGotChance = calcChance(10);
 
     if (isGotChance) {
-      const randomPhrase = randomPhrases[getRandomNumber(randomPhrases.length)];
-      const reply_to =
-        command.message.id || command.message.conversation_message_id;
-
       command.reply({
-        message: randomPhrase,
-        forward_messages: `${reply_to}`,
+        message: randomPhrases[getRandomNumber(randomPhrases.length)],
       });
     }
     return true;
