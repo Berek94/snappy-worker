@@ -4,7 +4,7 @@ import { calcChance, getRandomNumber } from "../../helpers";
 
 export const randomAnswer: BotMiddleware = async (command) => {
   try {
-    const isGotChance = calcChance(3);
+    const isGotChance = calcChance(20);
 
     if (isGotChance) {
       const randomPhrase = randomPhrases[getRandomNumber(randomPhrases.length)];
