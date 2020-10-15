@@ -13,6 +13,7 @@ export const randomAnswer: BotMiddleware = async (command) => {
     }
     return true;
   } catch (error) {
+    console.error("Middleware:randomAnswer error", error);
     return true;
   }
 };
