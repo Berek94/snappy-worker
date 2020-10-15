@@ -3,4 +3,5 @@ export type SendMessageParams = {
   message?: string;
   keyboard?: any;
   reply_to?: number;
+  forward_messages?: string
 };

@@ -1,10 +1,11 @@
-import { BotCommandReplyParams, WebhookMessage } from "./types";
+import { WebhookMessage } from "./types";
 import { sendMessage, editDialogName } from "../api/methods";
+import { SendMessageParams } from "../api/type";
 
 class VkBotCommand {
   constructor(public message: WebhookMessage) {}
 
-  async reply(data: BotCommandReplyParams) {
+  async reply(data: Omit<SendMessageParams, "peer_id">) {
     try {
       await sendMessage({
         peer_id: this.message.peer_id,
