@@ -1,9 +1,11 @@
 import { CommandHandler } from "../VkBot";
 
-const getSite: CommandHandler = (ctx) => {
+const getSite: CommandHandler = async (ctx) => {
   try {
-    ctx.reply({ message: "https://snappy-worker.ru/" });
-  } catch (error) {}
+    await ctx.reply({ message: "https://snappy-worker.ru/" });
+  } catch (error) {
+    console.error("Bot command error: getSite", error);
+  }
 };
 
 export default getSite;

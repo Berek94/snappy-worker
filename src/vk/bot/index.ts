@@ -1,6 +1,7 @@
 import setRandomDialogName from "./handlers/setRandomDialogName";
 import start from "./handlers/start";
 import getWhatDayToday from "./handlers/getWhatDayToday";
+import getSite from "./handlers/getSite";
 import { randomAnswer } from "./middleware";
 // import setDialogName from "./handlers/setDialogName";
 // import getRandomTweet from './handlers/getRandomTweet';
@@ -9,7 +10,6 @@ import { randomAnswer } from "./middleware";
 // import getQuote from "./handlers/getQuote";
 
 import VkBot from "./VkBot";
-import getSite from "./handlers/getSite";
 
 const bot = new VkBot([randomAnswer]);
 

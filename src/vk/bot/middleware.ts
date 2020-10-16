@@ -7,13 +7,13 @@ export const randomAnswer: BotMiddleware = async (command) => {
     const isGotChance = calcChance(10);
 
     if (isGotChance) {
-      command.reply({
+      await command.reply({
         message: randomPhrases[getRandomNumber(randomPhrases.length)],
       });
     }
     return true;
   } catch (error) {
-    console.error("Middleware:randomAnswer error", error);
+    console.error("Middleware error:randomAnswer", error);
     return true;
   }
 };
