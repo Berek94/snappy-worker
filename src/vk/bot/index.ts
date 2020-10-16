@@ -19,6 +19,6 @@ bot.command("какой сегодня день", getWhatDayToday);
 
 bot.command("случайное название чата", setRandomDialogName);
 
-bot.command("caйтик", getSite);
+bot.command("сайтик", getSite);
 
 export default bot;
