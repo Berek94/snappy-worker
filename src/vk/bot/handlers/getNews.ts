@@ -1,4 +1,4 @@
-import FetchError from "../../../fetch/FetchError";
+import BaseError from "../../../common/BaseError";
 import { getRandomNewsRequest } from "../../../request/getNewsRequest";
 import { CommandHandler } from "../VkBot";
 
@@ -7,9 +7,9 @@ const getNews: CommandHandler = async (ctx) => {
     const news = await getRandomNewsRequest();
     const text = [`⭕ ${news.title}`, news.description, news.link].join("\n\n");
 
-    ctx.reply({ message: text });
+    await ctx.reply({ message: text });
   } catch (error) {
-    if (error instanceof FetchError) {
+    if (error instanceof BaseError) {
       ctx.reply({ message: error.message });
     }
   }

@@ -2,16 +2,14 @@ import { WebhookMessage } from "./types";
 import { sendMessage, editDialogName } from "../api/methods";
 import { SendMessageParams } from "../api/type";
 
-class VkBotCommand {
+class VkBotMessageContext {
   constructor(public message: WebhookMessage) {}
 
   async reply(data: Omit<SendMessageParams, "peer_id">) {
-    try {
-      await sendMessage({
-        peer_id: this.message.peer_id,
-        ...data,
-      });
-    } catch (error) {}
+    sendMessage({
+      peer_id: this.message.peer_id,
+      ...data,
+    });
   }
 
   async changeDialogTitle(newTitle: string) {
@@ -21,4 +19,4 @@ class VkBotCommand {
   }
 }
 
-export default VkBotCommand;
+export default VkBotMessageContext;

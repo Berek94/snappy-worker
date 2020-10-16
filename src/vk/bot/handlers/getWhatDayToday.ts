@@ -1,4 +1,4 @@
-import FetchError from "../../../fetch/FetchError";
+import BaseError from "../../../common/BaseError";
 import { getRandomDayNameRequest } from "../../../request/getDayNamesRequest";
 import { CommandHandler } from "../VkBot";
 
@@ -6,9 +6,9 @@ const whatDayToday: CommandHandler = async (ctx) => {
   try {
     const day = await getRandomDayNameRequest();
 
-    ctx.reply({ message: day });
+    await ctx.reply({ message: day });
   } catch (error) {
-    if (error instanceof FetchError) {
+    if (error instanceof BaseError) {
       ctx.reply({ message: error.message });
     }
   }

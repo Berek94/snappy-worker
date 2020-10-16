@@ -1,12 +1,9 @@
-export default class VkApiError extends Error {
-  code: number;
+import BaseError from "../../common/BaseError";
 
+export default class VkApiError extends BaseError {
   constructor(error: Error, code: number) {
-    super(error.message);
+    super(error, code);
     this.message = error.message;
     this.code = code;
-
-    console.error({ message: this.message, code });
-    console.error(error);
   }
 }

@@ -1,13 +1,12 @@
-import FetchError from "../../../fetch/FetchError";
+import BaseError from "../../../common/BaseError";
 import { getRandomDayNameRequest } from "../../../request/getDayNamesRequest";
-import VkApiError from "../../api/VkApiError";
 import { CommandHandler } from "../VkBot";
 
 const setRandomDialogName: CommandHandler = async (ctx) => {
   try {
     await ctx.changeDialogTitle(await getRandomDayNameRequest());
   } catch (error: unknown) {
-    if (error instanceof VkApiError || error instanceof FetchError) {
+    if (error instanceof BaseError) {
       ctx.reply({ message: error.message });
     }
   }

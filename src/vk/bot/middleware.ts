@@ -2,12 +2,12 @@ import { BotMiddleware } from "./VkBot";
 import randomPhrases from "./db/randomPhrases.json";
 import { calcChance, getRandomNumber } from "../../helpers";
 
-export const randomAnswer: BotMiddleware = async (command) => {
+export const randomAnswer: BotMiddleware = async (ctx) => {
   try {
     const isGotChance = calcChance(10);
 
     if (isGotChance) {
-      await command.reply({
+      await ctx.reply({
         message: randomPhrases[getRandomNumber(randomPhrases.length)],
       });
     }

@@ -2,12 +2,12 @@ import { EventEmitter } from "events";
 import { Request, Response } from "express";
 import { CONFIRMATION } from "../../config";
 import { WebhookRequest } from "./types";
-import VkBotCommand from "./VkBotCommand";
+import VkBotMessageContext from "./VkBotMessageContext";
 import { sendMessage } from "../api/methods";
 
-export type CommandHandler = (context: VkBotCommand, args: string) => void;
+export type CommandHandler = (context: VkBotMessageContext, args: string) => void;
 
-export type BotMiddleware = (message: VkBotCommand) => Promise<boolean>;
+export type BotMiddleware = (context: VkBotMessageContext) => Promise<boolean>;
 
 class VkBot {
   private eventEmitter;
@@ -37,7 +37,7 @@ class VkBot {
       return res.send(CONFIRMATION);
     } else if (body.type === "message_new") {
       const { message } = body.object;
-      const botCommand = new VkBotCommand(message);
+      const botCommand = new VkBotMessageContext(message);
 
       const canCallAfter = await this.middlewareList.reduce(
         async (result, middleware) => {

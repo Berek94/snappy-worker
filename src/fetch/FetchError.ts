@@ -1,9 +1,8 @@
-export default class FetchError extends Error {
-  message = "Ошибка запроса на сторонний ресурс 🤯";
+import BaseError from "../common/BaseError";
 
+export default class FetchError extends BaseError {
   constructor(error: Error) {
-    super(error.message);
-
-    console.log(`${this.message}: `, error);
+    super(error, 666);
+    this.message = "Ошибка запроса на сторонний ресурс 🤯";
   }
 }
