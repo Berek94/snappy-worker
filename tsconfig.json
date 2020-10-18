@@ -13,5 +13,6 @@
     "noUnusedParameters": true,
     "strict": true,
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src"]
 }
