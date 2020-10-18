@@ -1,0 +1,18 @@
+:root {
+  --font-family: Ubuntu, sans-serif;
+  --font-color: #333;
+  --font-h1: 700 32px / 1 var(--font-family);
+  --font-h2: 500 28px / 1 var(--font-family);
+}
+
+html {
+  font-family: var(--font-family);
+  color: var(--font-color);
+}
+
+html,
+body,
+#app,
+.main {
+  height: 100%;
+}

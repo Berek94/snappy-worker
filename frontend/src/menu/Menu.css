@@ -1,0 +1,18 @@
+.menu {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  column-gap: 20px;
+  padding: 20px;
+  background-color: antiquewhite;
+  border-bottom: 1px solid gainsboro;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.menu-link:hover {
+  text-decoration: underline;
+}

@@ -1,15 +1,4 @@
-import { Router } from "express";
 import server from "./server";
-import vkBot from "./vk/bot";
-
-const router = Router();
-
-router.post("/vk-bot", (req, res, next) => {
-  try {
-    vkBot.webhook(req, res);
-  } catch (error) {
-    next({ error });
-  }
-});
+import router from "./vk/bot/router";
 
 server(router);
