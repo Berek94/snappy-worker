@@ -19,7 +19,7 @@ router.get("/api/commands", (_req, res, next) => {
       description,
     }));
 
-    res.json(dataToResponse);
+    res.status(200).json(dataToResponse);
   } catch (error) {
     next({ error });
   }
