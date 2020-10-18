@@ -61,4 +61,5 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "frontend/build/*"
           target: "/home/deployer/snappy-worker/public"
+          strip_components: 2
           rm: true
