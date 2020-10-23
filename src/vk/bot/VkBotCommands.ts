@@ -3,6 +3,7 @@ import setRandomDialogName from "./handlers/setRandomDialogName";
 import start from "./handlers/start";
 import getWhatDayToday from "./handlers/getWhatDayToday";
 import getSite from "./handlers/getSite";
+import getRandomPhrase from "./handlers/getRandomPhrase";
 
 type Command = {
   name: string;
@@ -32,6 +33,11 @@ const commands: Command[] = [
     name: "сайтик",
     description: "Ссылка на этот сайт 🙂",
     handler: getSite,
+  },
+  {
+    name: "😈",
+    description: "Что-то пизданет",
+    handler: getRandomPhrase,
   },
 ];
 

@@ -20,7 +20,17 @@ const start: CommandHandler = (ctx) => {
             {
               action: {
                 type: "text",
-                payload: '{"button": "4"}',
+                payload: '{"button": "2"}',
+                label: "😈",
+              },
+              color: "secondary",
+            },
+          ],
+          [
+            {
+              action: {
+                type: "text",
+                payload: '{"button": "3"}',
                 label: "Какой сегодня день",
               },
               color: "secondary",
