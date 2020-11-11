@@ -10,8 +10,9 @@ const getCurrentDayNamesRequest = async () => {
 
     if (lastRequestDate !== currentDate) {
       lastRequestDate = currentDate;
+
       const htmlContent = await (
-        await fetch("https://prazdnikisegodnya.ru/", "GET", null, {
+        await fetch("http://kakoysegodnyaprazdnik.ru/", "GET", null, {
           "Content-Type": "text/html",
           "User-Agent":
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36",
@@ -22,9 +23,11 @@ const getCurrentDayNamesRequest = async () => {
         })
       ).text();
 
-      const daysNames =
-        htmlContent.match(/(День .*)</g)?.map((i) => i.replace(/<|:/g, "")) ??
-        [];
+      const daysNames = Array.from(
+        htmlContent.matchAll(
+          new RegExp('<span itemprop="text">(.*?)</span>', "g")
+        )
+      ).map(([, dayName]) => dayName);
 
       cachedNames = daysNames;
     }
