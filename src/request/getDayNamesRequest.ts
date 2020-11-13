@@ -27,7 +27,12 @@ const getCurrentDayNamesRequest = async () => {
         htmlContent.matchAll(
           new RegExp('<span itemprop="text">(.*?)</span>', "g")
         )
-      ).map(([, dayName]) => dayName);
+      ).map(([, dayName]) =>
+        dayName
+          .replace(/\((.*)\)/g, "")
+          .replace(/\s{2,}/g, " ")
+          .trim()
+      );
 
       cachedNames = daysNames;
     }
