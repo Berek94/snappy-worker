@@ -36,7 +36,7 @@ jobs:
             cd snappy-worker
             touch .env
             echo "PORT=8080" >> .env
-            echo "CONFIRMATION=7f700990" >> .env
+            echo "CONFIRMATION=c21b427c" >> .env
             echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
             pm2 restart snappy-worker
   frontend:
