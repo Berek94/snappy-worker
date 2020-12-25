@@ -1,6 +1,6 @@
 import BaseError from "../../../common/BaseError";
 import { getRandomDayNameRequest } from "../../../request/getDayNamesRequest";
-import { CommandHandler } from "../VkBot";
+import { CommandHandler } from "../types";
 
 const whatDayToday: CommandHandler = async (ctx) => {
   try {

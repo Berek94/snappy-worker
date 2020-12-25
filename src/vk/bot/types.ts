@@ -1,3 +1,5 @@
+import VkBotMessageContext from "./VkBotMessageContext";
+
 export type WebhookMessage = {
   date: number;
   from_id: number;
@@ -26,3 +28,16 @@ export type WebhookRequest =
       group_id: number;
       event_id: string;
     };
+
+export type BotMiddleware = (context: VkBotMessageContext) => Promise<boolean>;
+
+export type CommandHandler = (
+  context: VkBotMessageContext,
+  args: string
+) => void;
+
+export type Command = {
+  name: string;
+  description: string;
+  handler: CommandHandler;
+};

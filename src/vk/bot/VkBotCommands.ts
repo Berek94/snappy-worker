@@ -1,15 +1,10 @@
-import { CommandHandler } from "./VkBot";
+import { Command } from "./types";
 import setRandomDialogName from "./handlers/setRandomDialogName";
 import start from "./handlers/start";
 import getWhatDayToday from "./handlers/getWhatDayToday";
 import getSite from "./handlers/getSite";
 import getRandomPhrase from "./handlers/getRandomPhrase";
-
-type Command = {
-  name: string;
-  description: string;
-  handler: CommandHandler;
-};
+import getPaymentUrl from "./handlers/getPaymentUrl";
 
 const commands: Command[] = [
   {
@@ -38,6 +33,11 @@ const commands: Command[] = [
     name: "😈",
     description: "Что-то пизданет",
     handler: getRandomPhrase,
+  },
+  {
+    name: "💳",
+    description: "Пожертвование на аренду сервера",
+    handler: getPaymentUrl,
   },
 ];
 

@@ -1,5 +1,5 @@
 import VkApiError from "../../api/VkApiError";
-import { CommandHandler } from "../VkBot";
+import { CommandHandler } from "../types";
 
 const setDialogName: CommandHandler = async (ctx, newName) => {
   try {

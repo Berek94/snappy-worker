@@ -1,4 +1,4 @@
-import { BotMiddleware } from "./VkBot";
+import { BotMiddleware } from "./types";
 import randomPhrases from "./db/randomPhrases.json";
 import { calcChance, getRandomNumber } from "../../helpers";
 

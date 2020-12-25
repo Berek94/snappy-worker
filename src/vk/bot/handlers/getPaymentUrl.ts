@@ -1,9 +1,12 @@
 import BaseError from "../../../common/BaseError";
+import { paymentMessage } from "../constants";
 import { CommandHandler } from "../types";
 
-const getSite: CommandHandler = async (ctx) => {
+const getPaymentUrl: CommandHandler = async (ctx) => {
   try {
-    await ctx.reply({ message: "https://snappy-worker.ru/" });
+    await ctx.reply({
+      message: paymentMessage,
+    });
   } catch (error: unknown) {
     if (error instanceof BaseError) {
       ctx.reply({ message: error.message });
@@ -11,4 +14,4 @@ const getSite: CommandHandler = async (ctx) => {
   }
 };
 
-export default getSite;
+export default getPaymentUrl;

@@ -1,16 +1,9 @@
 import { EventEmitter } from "events";
 import { Request, Response } from "express";
 import { CONFIRMATION } from "../../config";
-import { WebhookRequest } from "./types";
+import { BotMiddleware, CommandHandler, WebhookRequest } from "./types";
 import VkBotMessageContext from "./VkBotMessageContext";
 import { sendMessage } from "../api/methods";
-
-export type CommandHandler = (
-  context: VkBotMessageContext,
-  args: string
-) => void;
-
-export type BotMiddleware = (context: VkBotMessageContext) => Promise<boolean>;
 
 class VkBot {
   private eventEmitter;

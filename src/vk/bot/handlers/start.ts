@@ -1,4 +1,4 @@
-import { CommandHandler } from "../VkBot";
+import { CommandHandler } from "../types";
 
 const start: CommandHandler = (ctx) => {
   try {
@@ -32,6 +32,14 @@ const start: CommandHandler = (ctx) => {
                 type: "text",
                 payload: '{"button": "3"}',
                 label: "Какой сегодня день",
+              },
+              color: "secondary",
+            },
+            {
+              action: {
+                type: "text",
+                payload: '{"button": "4"}',
+                label: "💳",
               },
               color: "secondary",
             },
