@@ -58,9 +58,9 @@ class VkBot {
     this.eventEmitter.on(command, commandCallback);
   };
 
-  send = async (dialogID: number, message: string) => {
+  send = async (dialogID: number, message: string, attachment?: string) => {
     try {
-      await sendMessage({ peer_id: dialogID, message });
+      await sendMessage({ peer_id: dialogID, message, attachment });
     } catch (error) {}
   };
 }

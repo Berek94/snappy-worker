@@ -2,14 +2,17 @@ import fetch from "node-fetch";
 import { ACCESS_TOKEN } from "../../config";
 import VkApiError from "./VkApiError";
 
-type Response = {
+type BaseResponse = {
   error?: {
     error_code: number;
     error_msg: string;
   };
 };
 
-const vkApiRequest = async (method: string, data: any) => {
+const vkApiRequest = async <Response = {}>(
+  method: string,
+  data: any
+): Promise<BaseResponse & Response> => {
   try {
     const params = new URLSearchParams();
 
@@ -35,7 +38,7 @@ const vkApiRequest = async (method: string, data: any) => {
           "Content-Type": "application/json",
         },
       })
-    ).json()) as Response;
+    ).json()) as BaseResponse & Response;
 
     if (response.error) {
       throw new VkApiError(
@@ -43,6 +46,8 @@ const vkApiRequest = async (method: string, data: any) => {
         response.error.error_code
       );
     }
+
+    return response;
   } catch (error) {
     if (error instanceof VkApiError) {
       throw error;
