@@ -26,6 +26,16 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "build,node_modules"
           target: "/home/deployer/snappy-worker"
+      - name: Copy every day images to public dir
+        uses: appleboy/scp-action@master
+        with:
+          host: 82.148.16.21
+          username: deployer
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "src/vk/bot/images/*"
+          target: "/home/deployer/snappy-worker/public/every-day-images"
+          strip_components: 4
+          rm: true
       - name: "Run app"
         uses: appleboy/ssh-action@master
         with:

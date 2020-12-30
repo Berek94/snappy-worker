@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=8080 tsnd --respawn ./src/index.ts",
-    "build": "tsc --project tsconfig.json",
+    "start": "NODE_ENV=development PORT=8080 tsnd --respawn ./src/index.ts",
+    "build": "NODE_ENV=production tsc --project tsconfig.json",
     "deploy": "rm -rf build && npm run build && ./deploy.sh"
   },
   "keywords": [],
