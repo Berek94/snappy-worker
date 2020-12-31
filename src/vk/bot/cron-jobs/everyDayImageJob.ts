@@ -1,4 +1,4 @@
-// import { getDate } from "../../../helpers";
+import { getDate } from "../../../helpers";
 import { bestChatID } from "../constants";
 import VkBot from "../VkBot";
 import path from "path";
@@ -23,8 +23,22 @@ const everyDayImageJob = async (bot: VkBot) => {
       bot.send(bestChatID, "", attachment);
     };
 
-    // setInterval(sendRandomImage, 1000 * 60 * 2);
-    sendRandomImage();
+    let date = getDate().getDate();
+    let isNotified = false;
+
+    setInterval(() => {
+      const nowDate = getDate();
+
+      if (date === nowDate.getDate()) {
+        if (nowDate.getHours() >= 10 && !isNotified) {
+          sendRandomImage();
+          isNotified = true;
+        }
+      } else {
+        isNotified = false;
+        date = nowDate.getDate();
+      }
+    }, 1000 * 60 * 60);
   } catch (error) {
     console.error("Cron job error:everyDayImageJob", error);
   }
