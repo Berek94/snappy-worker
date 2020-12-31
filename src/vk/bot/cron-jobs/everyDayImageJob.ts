@@ -15,8 +15,6 @@ const everyDayImageJob = async (bot: VkBot) => {
       await fs.promises.readdir(imagesPath, { withFileTypes: true })
     ).map((image) => image.name);
 
-    console.log(images);
-
     setInterval(async () => {
       const randomImage = images[getRandomNumber(images.length)];
       const imageStream = fs.createReadStream(
