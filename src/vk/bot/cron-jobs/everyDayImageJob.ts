@@ -1,12 +1,10 @@
 // import { getDate } from "../../../helpers";
-// import { bestChatID, paymentMessage } from "../constants";
+import { bestChatID } from "../constants";
 import VkBot from "../VkBot";
 import path from "path";
 import fs from "fs";
 import { getRandomNumber } from "../../../helpers";
 import { loadImage } from "../../api/methods";
-
-const myID = 58673372;
 
 const everyDayImageJob = async (bot: VkBot) => {
   try {
@@ -15,15 +13,18 @@ const everyDayImageJob = async (bot: VkBot) => {
       await fs.promises.readdir(imagesPath, { withFileTypes: true })
     ).map((image) => image.name);
 
-    setInterval(async () => {
+    const sendRandomImage = async () => {
       const randomImage = images[getRandomNumber(images.length)];
       const imageStream = fs.createReadStream(
         path.resolve(imagesPath, randomImage)
       );
-      const attachment = await loadImage(myID, imageStream);
+      const attachment = await loadImage(bestChatID, imageStream);
 
-      bot.send(myID, "", attachment);
-    }, 1000 * 60 * 2);
+      bot.send(bestChatID, "", attachment);
+    };
+
+    // setInterval(sendRandomImage, 1000 * 60 * 2);
+    sendRandomImage();
   } catch (error) {
     console.error("Cron job error:everyDayImageJob", error);
   }
