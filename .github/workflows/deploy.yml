@@ -4,10 +4,10 @@ on:
     branches: [master]
 
 jobs:
-  env:
-    SERVER_HOST_IP: 82.148.16.21
-    SERVER_USER: deployer
   backend:
+    env:
+      SERVER_HOST_IP: 82.148.16.21
+      SERVER_USER: deployer
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,6 +54,9 @@ jobs:
             echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
             NODE_ENV=production pm2 restart snappy-worker
   frontend:
+    env:
+      SERVER_HOST_IP: 82.148.16.21
+      SERVER_USER: deployer
     runs-on: ubuntu-latest
     strategy:
       matrix:
