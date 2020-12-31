@@ -3,6 +3,10 @@ on:
   push:
     branches: [master]
 
+env:
+  SERVER_HOST_IP: 82.148.16.21
+  SERVER_USER: deployer
+
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -21,16 +25,16 @@ jobs:
       - name: Copy build to the server
         uses: appleboy/scp-action@master
         with:
-          host: 82.148.16.21
-          username: deployer
+          host: $SERVER_HOST_IP
+          username: $SERVER_USER
           key: ${{ secrets.DEPLOY_KEY }}
           source: "build,node_modules"
           target: "/home/deployer/snappy-worker"
       - name: Copy every day images to public dir
         uses: appleboy/scp-action@master
         with:
-          host: 82.148.16.21
-          username: deployer
+          host: $SERVER_HOST_IP
+          username: $SERVER_USER
           key: ${{ secrets.DEPLOY_KEY }}
           source: "src/vk/bot/images/*"
           target: "/home/deployer/snappy-worker/public/every-day-images"
@@ -39,8 +43,8 @@ jobs:
       - name: "Run app"
         uses: appleboy/ssh-action@master
         with:
-          host: 82.148.16.21
-          username: deployer
+          host: $SERVER_HOST_IP
+          username: $SERVER_USER
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd snappy-worker
@@ -48,7 +52,7 @@ jobs:
             echo "PORT=8080" >> .env
             echo "CONFIRMATION=c21b427c" >> .env
             echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
-            pm2 restart snappy-worker
+            NODE_ENV=production pm2 restart snappy-worker
   frontend:
     runs-on: ubuntu-latest
     strategy:
@@ -66,8 +70,8 @@ jobs:
       - name: Copy build to the server
         uses: appleboy/scp-action@master
         with:
-          host: 82.148.16.21
-          username: deployer
+          host: $SERVER_HOST_IP
+          username: $SERVER_USER
           key: ${{ secrets.DEPLOY_KEY }}
           source: "frontend/build/*"
           target: "/home/deployer/snappy-worker/public"
