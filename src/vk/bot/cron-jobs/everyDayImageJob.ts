@@ -5,16 +5,12 @@ import path from "path";
 import fs from "fs";
 import { getRandomNumber } from "../../../helpers";
 import { loadImage } from "../../api/methods";
-import { IS_PRODUCTION } from "../../../config";
 
 const myID = 58673372;
 
 const everyDayImageJob = async (bot: VkBot) => {
   try {
-    const imagesPath = path.resolve(
-      __dirname,
-      IS_PRODUCTION ? "../../../../public/every-day-images" : "../images"
-    );
+    const imagesPath = path.resolve(__dirname, "../images");
     const images = (
       await fs.promises.readdir(imagesPath, { withFileTypes: true })
     ).map((image) => image.name);
