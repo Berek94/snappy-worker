@@ -1,15 +1,18 @@
 import { BotMiddleware } from "./types";
-import randomPhrases from "./db/randomPhrases.json";
-import { calcChance, getRandomNumber } from "../../helpers";
+import { calcChance } from "../../helpers";
+import fetch from "../../fetch";
 
 export const randomAnswer: BotMiddleware = async (ctx) => {
   try {
     const isGotChance = calcChance(8);
 
     if (isGotChance) {
-      await ctx.reply({
-        message: randomPhrases[getRandomNumber(randomPhrases.length)],
-      });
+      const { insult: message } = await (
+        await fetch(
+          "https://evilinsult.com/generate_insult.php?lang=ru&type=json"
+        )
+      ).json();
+      await ctx.reply({ message });
     }
     return true;
   } catch (error) {
