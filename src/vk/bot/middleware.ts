@@ -9,7 +9,7 @@ export const randomAnswer: BotMiddleware = async (ctx) => {
     if (isGotChance) {
       const { insult: message } = await (
         await fetch(
-          "https://evilinsult.com/generate_insult.php?lang=ru&type=json"
+          `https://evilinsult.com/generate_insult.php?lang=ru&type=json&_=${Math.random()}`
         )
       ).json();
       await ctx.reply({ message });
