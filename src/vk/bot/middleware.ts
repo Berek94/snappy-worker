@@ -6,7 +6,7 @@ export const randomAnswer: BotMiddleware = async (ctx) => {
   try {
     const isGotChance = calcChance(8);
 
-    if (isGotChance) {
+    if (isGotChance && false) {
       const { insult: message } = await (
         await fetch(
           `https://evilinsult.com/generate_insult.php?lang=ru&type=json&_=${Math.random()}`
